@@ -1,4 +1,3 @@
-:: Fix ability to reference com interlop
 @echo off
 :: CSC CommandLine Helper
 :: Created: 03-06-2025
