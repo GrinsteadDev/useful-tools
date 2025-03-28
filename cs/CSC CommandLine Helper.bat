@@ -9,6 +9,8 @@
 set csc_path=C:\Windows\Microsoft.NET\Framework64\v4.0.30319
 set csc_lib="%csc_path%","C:\Windows\assembly\GAC_MSIL"
 set csc_lang_version=5
+set default_project_name=App.exe
+set default_project_type=exe
 :: END USER EDIT HERE
 setlocal
 setlocal EnableDelayedExpansion
@@ -45,10 +47,15 @@ if not exist "%csc_path%" (
 set /p project_name=Enter Project name ^(outfile with extension^): 
 echo:
 
+:: Sets a default value for project name
+if not defined project_name set "project_name=%default_project_name%"
+
 :: Sets the project directory to the current working directory
 set project_dir=%CD%
 echo Current Directory is %project_dir%
 set /p yesno=Do you wish to change the current directory^? ^[yes^|no^]: 
+:: Defaults to no
+if not defined yesno set "yesno=no"
 :: Tests input for yes case-insensitive
 set is_y=
 set is_e=
@@ -83,6 +90,8 @@ set tar_list=exe winexe library module appcontainerexe winmdobj
 set tar_found=
 echo Enter your target type ^[exe^|winexe^|library^|module^|appcontainerexe^|winmdobj^]
 set /p tar=Target: 
+:: Sets default value for tar
+if not defined tar set "tar=%default_project_type%"
 :: Validates the input against the tar_list var
 for %%i in (%tar_list%) do ( 
 	if "%tar%"=="%%i" ( 
